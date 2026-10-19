@@ -35,7 +35,10 @@ RSS_URL = "https://www.youtube.com/feeds/videos.xml?channel_id={}"
 JST = timezone(timedelta(hours=9))
 
 # 各チャンネルの「最近の動画」を何件までさかのぼって配信中か調べるか（1〜50）
-RECENT_VIDEOS = 50
+RECENT_VIDEOS = 10
+# 各チャンネルの「ライブ配信一覧」を何件までさかのぼるか（1〜50）。
+# 長期間続いている24時間配信は、ショート動画などに押されて「最近の動画」に出てこないことがあるため。
+RECENT_LIVES = 20
 
 
 class ApiError(Exception):
@@ -173,12 +176,12 @@ def recent_video_ids_from_rss(channel_id):
     return [e.text for e in root.iterfind(".//yt:videoId", ns) if e.text]
 
 
-def recent_video_ids_from_api(uploads_playlist):
+def recent_video_ids_from_api(uploads_playlist, max_results=RECENT_VIDEOS):
     try:
         res = api("playlistItems", part="contentDetails",
-                  playlistId=uploads_playlist, maxResults=RECENT_VIDEOS)
+                  playlistId=uploads_playlist, maxResults=max_results)
     except ApiError as e:
-        if " 404 " in str(e):  # 動画が1本もないチャンネル
+        if " 404 " in str(e):  # 動画（ライブ）が1本もないチャンネル
             return []
         raise
     return [i["contentDetails"]["videoId"] for i in res.get("items", [])]
@@ -305,10 +308,13 @@ def main():
     channels = resolve_channels(read_channels(), cache)
     by_id = {c["id"]: c for c in channels}
 
-    # 1) 調べる動画IDを集める（RSS ＋ アップロード一覧 ＋ 前回まで配信中だった動画）
+    # 1) 調べる動画IDを集める（RSS ＋ アップロード一覧 ＋ ライブ配信一覧 ＋ 前回まで配信中だった動画）
     candidates = {}
     for c in channels:
-        ids = recent_video_ids_from_rss(c["id"]) + recent_video_ids_from_api(c["uploads"])
+        ids = (recent_video_ids_from_rss(c["id"])
+               + recent_video_ids_from_api(c["uploads"])
+               # 「UULV」で始まる再生リスト＝そのチャンネルのライブ配信一覧
+               + recent_video_ids_from_api("UULV" + c["id"][2:], RECENT_LIVES))
         for vid in ids:
             candidates[vid] = c["id"]
     for vid, s in live_state.items():
