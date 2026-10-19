@@ -1,0 +1,55 @@
+name: YouTube ライブ監視
+
+on:
+  schedule:
+    # 5分ごと（毎時 03,08,13,…,58 分）。GitHub は混雑時に予約を飛ばすため回数を多めにしている。
+    # Public リポジトリなので実行時間は無料・無制限。
+    # 間隔を変えるときはここを編集（例: 15分ごと → "8,23,38,53 * * * *"）
+    - cron: "3-58/5 * * * *"
+  workflow_dispatch: # Actions画面の「Run workflow」ボタンで手動実行
+
+permissions:
+  contents: write # 記録したCSVと state.json をリポジトリに保存するため
+
+concurrency:
+  group: youtube-live-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 配信状況をチェック
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          # ↓ 通知先を増やすときは Secret「TEAMS_〇〇」を作り、下に1行追記（例の # を外して名前を変える）
+          # TEAMS_SAPPORO: ${{ secrets.TEAMS_SAPPORO }}
+          TEAMS_WAKKANAI: ${{ secrets.TEAMS_WAKKANAI }}
+          TEAMS_WAKKANAICC: ${{ secrets.TEAMS_WAKKANAICC }}
+          TEAMS_HAYAKITA: ${{ secrets.TEAMS_HAYAKITA }}
+          TEAMS_TOYA: ${{ secrets.TEAMS_TOYA }}
+          TEAMS_NISEKO: ${{ secrets.TEAMS_NISEKO }}
+          TEAMS_MAIKO: ${{ secrets.TEAMS_MAIKO }}
+          TEAMS_LAGUNA: ${{ secrets.TEAMS_LAGUNA }}
+        run: python3 watch.py
+
+      - name: 結果を保存
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          if [ -d data ]; then git add data; fi
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "監視結果を記録 $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M')"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1
