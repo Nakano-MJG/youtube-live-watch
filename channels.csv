@@ -1,0 +1,12 @@
+name,channel,notify
+# ↓ 1行に1チャンネル。name は通知に出す表示名（空欄ならYouTube上の名前）
+# channel には @ハンドル / チャンネルURL / UC〜で始まるチャンネルID のどれかを書く
+# notify には通知先名。Secret「TEAMS_通知先名」の TEAMS_ を除いた部分（例: TEAMS_SAPPORO → SAPPORO）。複数なら「;」区切り
+# 先頭に # を付けた行は無視されます（この説明行は消してもOK）
+稚内,https://www.youtube.com/@surfeelwakkanai,WAKKANAI
+稚内CC,https://www.youtube.com/@wakkanai_cc,WAKKANAICC
+早来,https://www.youtube.com/@hayakita_cc,HAYAKITA
+洞爺,https://www.youtube.com/@the_windsor_hotel,TOYA
+ニセコ,https://www.youtube.com/@niseko_northern,NISEKO
+舞子,https://www.youtube.com/@maikovillakobe,MAIKO
+ラグナ,https://www.youtube.com/@lagunagarden1992,LAGUNA
