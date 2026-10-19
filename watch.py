@@ -199,6 +199,10 @@ def fetch_videos(video_ids):
 
 
 def is_live(video):
+    # プレミア公開の動画も開始時刻だけ入って「配信中」に見えるので、
+    # YouTube が「ライブ中」と判定しているもの（liveBroadcastContent == "live"）に限る
+    if (video.get("snippet") or {}).get("liveBroadcastContent") != "live":
+        return False
     d = video.get("liveStreamingDetails") or {}
     return bool(d.get("actualStartTime")) and not d.get("actualEndTime")
 
@@ -364,6 +368,10 @@ def main():
         s = live_state.pop(vid)
         v = videos.get(vid)
         d = (v or {}).get("liveStreamingDetails") or {}
+        if v and not d.get("actualEndTime") and v["snippet"].get("liveBroadcastContent") != "live":
+            # 以前「配信中」と誤判定していたプレミア公開の動画など。終了通知は出さずに外す
+            print(f"[除外] {s['channel_name']} / {s['title']}（ライブ配信ではない動画）")
+            continue
         ended = parse_iso(d.get("actualEndTime")) or now
         started = parse_iso(s["started_at"])
         avg = round(s["sum"] / s["samples"]) if s["samples"] else None
