@@ -42,9 +42,9 @@
       "channel_name": "洞爺",
       "notify": "TOYA",
       "peak": 4,
-      "samples": 66,
+      "samples": 67,
       "started_at": "2026-11-19T11:22:25+00:00",
-      "sum": 41,
+      "sum": 42,
       "title": "北海道・洞爺湖ライブ配信｜ウィンザーホテル屋上カメラ｜洞爺湖の風景を24時間お届け"
     },
     "W5iKrSNyJhQ": {
@@ -52,9 +52,9 @@
       "channel_name": "舞子",
       "notify": "MAIKO",
       "peak": 72,
-      "samples": 1090,
+      "samples": 1091,
       "started_at": "2026-03-26T07:35:51+00:00",
-      "sum": 34361,
+      "sum": 34394,
       "title": "絶景を、待たせない。舞子ビラ神戸ライブ中継スタート！明石海峡の絶景をライブでお楽しみください。#舞子ビラ #明石海峡ライブ #絶景配信 #神戸 #maikovilla #kobe #japan"
     },
     "ZqavWSqkkXE": {
@@ -62,9 +62,9 @@
       "channel_name": "ラグナ",
       "notify": "LAGUNA",
       "peak": 183,
-      "samples": 1091,
+      "samples": 1092,
       "started_at": "2026-09-29T07:07:43+00:00",
-      "sum": 21145,
+      "sum": 21150,
       "title": "沖縄の“今”をライブで！ラグナガーデンホテルから南国の絶景をお楽しみください。 #ラグナガーデンホテル #沖縄 #沖縄配信 #LagunaGardenHotel #Okinawa"
     },
     "hEaggGOlsDg": {
@@ -72,19 +72,19 @@
       "channel_name": "ニセコ",
       "notify": "NISEKO",
       "peak": 15,
-      "samples": 1091,
+      "samples": 1092,
       "started_at": "2026-03-09T09:19:02+00:00",
-      "sum": 4092,
+      "sum": 4101,
       "title": "【LIVE】大自然の絶景をリアルタイムで！ニセコ アンヌプリ高原 ライブカメラ映像"
     },
     "hbM340IimbM": {
       "channel_id": "UCSoeU61Gv7gogPtTQ8JeYCA",
       "channel_name": "稚内",
       "notify": "WAKKANAI",
-      "peak": 4,
-      "samples": 30,
+      "peak": 5,
+      "samples": 31,
       "started_at": "2026-11-25T01:52:57+00:00",
-      "sum": 49,
+      "sum": 54,
       "title": "【北海道LIVE】サフィールホテル稚内からの絶景オーシャンビューをライブでお届け #サフィールホテル #稚内ライブ #絶景配信 #北海道 #海 #hokkaido #japan"
     },
     "hbrmYor1zto": {
@@ -92,7 +92,7 @@
       "channel_name": "早来",
       "notify": "HAYAKITA",
       "peak": 1,
-      "samples": 36,
+      "samples": 37,
       "started_at": "2026-11-24T00:18:40+00:00",
       "sum": 2,
       "title": "【北海道・早来】早来カントリー倶楽部 24時間ライブカメラ｜今日の天気・感動のサンセットをリアルタイムで配信中"
@@ -102,7 +102,7 @@
       "channel_name": "稚内CC",
       "notify": "WAKKANAICC",
       "peak": 1,
-      "samples": 36,
+      "samples": 37,
       "started_at": "2026-11-24T02:58:02+00:00",
       "sum": 9,
       "title": "【ゴルフ場LIVE】稚内カントリークラブの\"今\"をライブでお届け #稚内ライブ #絶景配信 #ゴルフ場 #北海道 #稚内の天気 #hokkaido #japan"
@@ -112,9 +112,9 @@
       "channel_name": "洞爺",
       "notify": "TOYA",
       "peak": 4,
-      "samples": 1091,
+      "samples": 1092,
       "started_at": "2026-09-26T10:25:06+00:00",
-      "sum": 279,
+      "sum": 280,
       "title": "【絶景ライブ】内浦湾を一望｜ウィンザーホテル屋上カメラ｜内浦湾の風景を24時間お届け"
     }
   }
